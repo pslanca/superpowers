@@ -47,6 +47,7 @@ for skill_dir in "$SKILLS_SRC"/*/; do
 
     # Symlink references directory if it exists
     if [[ -d "$skill_dir/references" ]]; then
+        rm -rf "$dest_dir/references"
         ln -sfn "$skill_dir/references" "$dest_dir/references"
     fi
 
