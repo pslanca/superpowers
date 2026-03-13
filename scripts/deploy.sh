@@ -51,9 +51,10 @@ for skill_dir in "$SKILLS_SRC"/*/; do
         ln -sfn "$skill_dir/references" "$dest_dir/references"
     fi
 
-    # Copy scripts directory if it exists
+    # Symlink scripts directory if it exists
     if [[ -d "$skill_dir/scripts" ]]; then
-        rsync -a --delete "$skill_dir/scripts/" "$dest_dir/scripts/"
+        rm -rf "$dest_dir/scripts"
+        ln -sfn "$skill_dir/scripts" "$dest_dir/scripts"
     fi
 
     echo "  ✓ $skill_name"
