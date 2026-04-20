@@ -13,6 +13,16 @@ Guide completion of development work by presenting clear options and handling ch
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
+## Git State (injected at invocation)
+
+Branch: !`git branch --show-current 2>/dev/null || echo "unknown"`
+Base branch: !`git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main"`
+Recent commits: !`git log --oneline -5 2>/dev/null || echo "no git history"`
+Diff summary: !`git diff --stat $(git merge-base HEAD $(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main") 2>/dev/null) 2>/dev/null | tail -5 || echo "no diff"`
+Worktrees: !`git worktree list 2>/dev/null || echo "none"`
+
+Use this state to skip redundant git discovery in Steps 1-2.
+
 ## The Process
 
 ### Step 1: Verify Tests
